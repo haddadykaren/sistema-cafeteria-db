@@ -43,4 +43,33 @@ Para testar o banco de dados, utilize um gerenciador como MySQL Workbench ou php
 Acesse o script completo clicando no arquivo [`script.sql`](./script.sql).
 
 ---
+CREATE TABLE produtos (
+    id_produto INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(5,2) NOT NULL,
+    descricao VARCHAR(255)
+);
 
+CREATE TABLE pedidos (
+    id_pedido INT PRIMARY KEY AUTO_INCREMENT,
+    id_produto INT,
+    quantidade INT NOT NULL,
+    data_pedido DATE,
+    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);
+
+-- Inserção de registros em produtos
+INSERT INTO produtos (nome, preco, descricao) VALUES 
+('Café Expresso', 5.50, 'Café forte e concentrado'),
+('Capuccino', 6.90, 'Café com leite e espuma'),
+('Pão de queijo', 4.00, 'Pão de queijo mineiro tradicional');
+
+-- Inserção de registros em pedidos
+INSERT INTO pedidos (id_produto, quantidade, data_pedido) VALUES 
+(1, 2, '2025-04-15'),
+(2, 1, '2025-04-16'),
+(3, 3, '2025-04-16');
+git add banco_cafeteria.sql README.md
+git commit -m "Adiciona script SQL para criação e população das tabelas produtos e pedidos"
+git push origin main
+git commit -m "Adiciona script SQL com modelagem de banco de dados para cafeteria"
